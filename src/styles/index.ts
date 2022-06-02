@@ -52,7 +52,7 @@ export const {
     },
     radii: {
       full: '9999px',
-      default: '5px'
+      default: '10px'
     },
   },
   media: {

@@ -1,4 +1,5 @@
 import { styled } from '../../styles'
+import { Card } from '../Components/Card'
 
 const Container = styled('div', {
   border: '1px solid red',
@@ -23,18 +24,6 @@ const Title = styled('h1', {
   color: '$grey200'
 })
 
-const Card = styled('div', {
-  width: 350,
-  height: 350,
-  border: '1px solid yellow',
-  color: '$text',
-
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
-
 const Button = styled('button', {
   width: 200,
   height: 50,
@@ -52,34 +41,40 @@ const Button = styled('button', {
 export function CourseList() {
   return (
     <Container>
-      <Title>Course List</Title>
+      <Title>Módulos</Title>
       <Box>
         <Card>
-          Teste
+          <h1>Título</h1>
+          <p>
+            Descrição do módulo
+          </p>
           <Button>
             Acessar a trilha
           </Button>
         </Card>
         <Card>
-          Teste
+          <h1>Título</h1>
+          <p>
+            Descrição do módulo
+          </p>
           <Button>
             Acessar a trilha
           </Button>
         </Card>
         <Card>
-          Teste
+          <h1>Título</h1>
+          <p>
+            Descrição do módulo
+          </p>
           <Button>
             Acessar a trilha
           </Button>
         </Card>
         <Card>
-          Teste
-          <Button>
-            Acessar a trilha
-          </Button>
-        </Card>
-        <Card>
-          Teste
+          <h1>Título</h1>
+          <p>
+            Descrição do módulo
+          </p>
           <Button>
             Acessar a trilha
           </Button>
