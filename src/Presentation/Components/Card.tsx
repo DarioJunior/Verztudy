@@ -3,11 +3,12 @@ import { styled } from '../../styles'
 export function Card({ children }: any) {
   const Container = styled('div', {
     width: 350,
-    height: 350,
+    height: 250,
     color: '$text',
     backgroundColor: '$grey800',
     borderRadius: '$default',
     border: '2px solid $lightViolet',
+    padding: '$16',
 
     '&:hover': {
       cursor: 'pointer',

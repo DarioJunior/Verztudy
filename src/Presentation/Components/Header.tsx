@@ -1,8 +1,8 @@
 import { styled, css } from '../../styles'
 
 const Container = styled('header', {
-  width: '100vw',
-  height: 150,
+  width: '100%',
+  minHeight: 100,
   backgroundColor: '$midViolet',
 
   display: 'flex',

@@ -88,7 +88,7 @@ export function Login() {
   const handleLogin = async () => {
     const response = await authenticateUser({ userEmail, userPassword })
     console.log(response)
-    return navigate('/home')
+    return navigate('/modules')
   }
 
   return (

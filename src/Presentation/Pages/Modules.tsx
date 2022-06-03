@@ -6,6 +6,7 @@ const Container = styled('div', {
   width: '100vw',
   height: '100vh',
   backgroundColor: '$grey700',
+  border: '5px solid yellow',
 
   display: 'flex',
   flexDirection: 'column',

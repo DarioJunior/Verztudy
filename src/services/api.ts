@@ -16,3 +16,21 @@ export async function authenticateUser(userInfos: userInfosProps) {
     console.log(err)
   }
 }
+
+export async function getAllModules(): Promise<any> {
+  try {
+    const data = await axios.get(`${API_URL}/modules`)
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+export async function getClassesByModule(name: string): Promise<any> {
+  try {
+    const data = await axios.get(`${API_URL}/modules/${name}`)
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}

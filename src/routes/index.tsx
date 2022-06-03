@@ -1,5 +1,5 @@
 import { Login } from '../Presentation/Pages/Login'
-import { Home } from '../Presentation/Pages/Home'
+import { Home } from '../Presentation/Pages/Modules'
 import { Admin } from '../Presentation/Pages/Admin'
 import {
   BrowserRouter as Router,
@@ -7,15 +7,17 @@ import {
   Route,
   Navigate
 } from 'react-router-dom'
+import { Module } from '../Presentation/Pages/Module'
 
 function AppRouter() {
  return (
     <Router>
       <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/modules" element={<Home />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="*" element={<Navigate to="/login" />}/>
+      <Route path="/modules/:name" element={<Module />} />
+      {/* <Route path="*" element={<Navigate to="/login" />}/> */}
       </Routes>
     </Router>
   )
