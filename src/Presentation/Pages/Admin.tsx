@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react'
+import { getAllModules, getClassesByModule } from '../../services/api'
 import { styled, css } from '../../styles'
+import { Card } from '../Components/Card'
 import { Header } from '../Components/Header'
-import { CourseList } from '../Modules/CourseList'
+import { AdminCard } from '../Components/AdminCard'
 
 const Container = styled('div', {
   width: '100vw',
@@ -25,6 +28,26 @@ const Title = styled('h1', {
 })
 
 export function Admin() {
+  const [modulesList, setModulesList] = useState([])
+  const [currentClasses, setCurrentClasses] = useState([])
+  useEffect(() => {
+    const getModules = async () => {
+      const { status, data } = await getAllModules()
+
+      if (status === 200) {
+        setModulesList(data)
+      }
+    }
+    getModules()
+  }, [])
+
+  const getClassesFromModule = async (name: string) => {
+    const { status, data: { classes } } = await getClassesByModule(name)
+    if (status === 200) {
+      console.log(classes)
+      setCurrentClasses(classes)
+    }
+  }
   return (
     <Container>
       <Header />
@@ -33,17 +56,45 @@ export function Admin() {
       }}>
         <Box css={{
           border: '1px solid yellow',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          MÓDULOS
+          {
+            modulesList &&
+              modulesList.map(({ name, id }) => (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                margin: '5px 0'
+              }}>
+                <AdminCard 
+                  key={id}
+                  onClickFunction={ getClassesFromModule }
+                  name={name}
+                >
+                  {name}
+                </AdminCard>
+              </div>
+            ))
+          }
         </Box>
         <Box css={{
           border: '1px solid yellow',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          AULAS
+          {
+            currentClasses &&
+              currentClasses.map(({ name, id }) => (
+              <AdminCard
+                key={id}
+              >
+                {name}
+            </AdminCard>
+            ))
+          }
         </Box>
       </Box>
 

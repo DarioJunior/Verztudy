@@ -34,3 +34,21 @@ export async function getClassesByModule(name: string): Promise<any> {
     console.log(err)
   }
 }
+
+export async function updateModuleName(moduleName: string, newModuleName: string): Promise<any> {
+  try {
+    const data = await axios.put(`${API_URL}/modules/${moduleName}`, {newModuleName})
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+export async function deleteModule(moduleName: string): Promise<any> {
+  try {
+    const data = await axios.delete(`${API_URL}/modules/${moduleName}`)
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}

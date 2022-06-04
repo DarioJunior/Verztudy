@@ -17,7 +17,7 @@ function AppRouter() {
       <Route path="/modules" element={<Home />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/modules/:name" element={<Module />} />
-      {/* <Route path="*" element={<Navigate to="/login" />}/> */}
+      <Route path="*" element={<Navigate to="/login" />}/>
       </Routes>
     </Router>
   )

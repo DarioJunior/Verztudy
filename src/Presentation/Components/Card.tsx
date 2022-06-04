@@ -1,7 +1,7 @@
-import { styled } from '../../styles'
+import { styled, css } from '../../styles'
 
-export function Card({ children }: any) {
-  const Container = styled('div', {
+export function Card({ children, onClickFunction, name, css }: any) {
+  const Container = styled('button', {
     width: 350,
     height: 250,
     color: '$text',
@@ -24,7 +24,7 @@ export function Card({ children }: any) {
   })
 
   return (
-    <Container>
+    <Container css={css} onClick={() => onClickFunction(name)}>
       {children}
     </Container>
   )
