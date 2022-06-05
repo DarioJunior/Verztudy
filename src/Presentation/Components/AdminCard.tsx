@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { styled, css } from '../../styles'
+import { styled } from '../../styles'
 import { FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
-import { deleteModule, updateModuleName } from '../../services/api'
+import { deleteModule, getAllModulesByAdmin, updateModuleName } from '../../services/api'
+import { useDispatch } from 'react-redux'
+import { addModules } from '../../store/modules/modules/actions'
 
 const Container = styled('input', {
   width: 350,
@@ -44,6 +46,7 @@ const Box = styled('div', {
 
 
 export function AdminCard({ children, onClickFunction, name, css }: any) {  
+  const dispatch = useDispatch()
   const [isReadOnly, setIsReadOnly] = useState(true)
   let originalModuleName = children
   const [inputValue, setInputValue] = useState(children)
@@ -52,14 +55,18 @@ export function AdminCard({ children, onClickFunction, name, css }: any) {
     setInputValue(event.target.value)
   }
 
+  const actualizeModuleList = async () => {
+    const { data } = await getAllModulesByAdmin()
+    dispatch(addModules(data))
+  }
+
   const handleSetReadOnly = () => {
     setIsReadOnly(!isReadOnly)
   }
 
   const handleDelete = async () => {
-    console.log('click')
     const result = await deleteModule(name)
-    console.log(result)
+    actualizeModuleList()
   }
 
   const handleSaveChanges = async () => {

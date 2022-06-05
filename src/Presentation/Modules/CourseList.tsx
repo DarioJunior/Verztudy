@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getAllModules } from '../../services/api'
+import { IState } from '../../store'
+import { addModules } from '../../store/modules/modules/actions'
+import { IModulesState } from '../../store/modules/modules/types'
 import { styled } from '../../styles'
 import { Card } from '../Components/Card'
 
 const Container = styled('div', {
-  border: '1px solid red',
   width: '100vw',
   height: '100vh',
   overflow: 'auto',
@@ -51,16 +54,16 @@ const Button = styled('button', {
 })
 
 export function CourseList() {
+  const state = useSelector<IState, IModulesState>(state => state.modules)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const param = useParams()
 
-  const [modulesList, setModulesList] = useState([])
   useEffect(() => {
     const getModules = async () => {
       const { status, data } = await getAllModules()
 
       if (status === 200) {
-        setModulesList(data)
+        dispatch(addModules(data))
       }
     }
     getModules()
@@ -86,7 +89,7 @@ export function CourseList() {
       <Title>Módulos</Title>
       <Box>
        { 
-        modulesList && modulesList.map((module: any) => (
+        state.modules && state.modules.map((module: any) => (
           <Card key={module.id}>
             <Title>{module.name}</Title>
             <Paragraph>{'Aulas disponíveis:' + module.classes.length }</Paragraph>

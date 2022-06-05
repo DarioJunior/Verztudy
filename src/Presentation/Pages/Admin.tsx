@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
-import { getAllModules, getClassesByModule } from '../../services/api'
-import { styled, css } from '../../styles'
-import { Card } from '../Components/Card'
+import { useNavigate } from 'react-router-dom'
+import { getAllModulesByAdmin, getClassesByModule } from '../../services/api'
+import { styled } from '../../styles'
+
 import { Header } from '../Components/Header'
 import { AdminCard } from '../Components/AdminCard'
+import { AddCourseDialog } from '../Components/ModuleDialog'
+import { addModules } from '../../store/modules/modules/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { IState } from '../../store'
+import { IModulesState } from '../../store/modules/modules/types'
 
 const Container = styled('div', {
   width: '100vw',
@@ -13,6 +19,7 @@ const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'center'
 })
 
 const Box = styled('div', {
@@ -27,15 +34,45 @@ const Title = styled('h1', {
   color: '$grey200'
 })
 
+const Button = styled('button', {
+  width: 40,
+  height: 40,
+
+  fontSize: '2rem',
+  color: '#006600',
+
+  // border: '1px solid white',
+  borderRadius: '$full',
+  marginRight: '$32',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'white',
+
+  '&:hover': {
+    cursor: 'pointer',
+    transition: 'all 0.5s',
+    transform: 'scale(1.1)',
+    color: 'white',
+    background: '#006600',
+  }
+})
+
 export function Admin() {
-  const [modulesList, setModulesList] = useState([])
+  const state = useSelector<IState, IModulesState>(state => state.modules)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [currentClasses, setCurrentClasses] = useState([])
+  
   useEffect(() => {
     const getModules = async () => {
-      const { status, data } = await getAllModules()
-
+      const { status, data } = await getAllModulesByAdmin()
       if (status === 200) {
-        setModulesList(data)
+        dispatch(addModules(data))
+      } else {
+        window.alert('Parece que você não tem permissão para acessar este recurso')
+        return navigate('/modules')
       }
     }
     getModules()
@@ -44,7 +81,6 @@ export function Admin() {
   const getClassesFromModule = async (name: string) => {
     const { status, data: { classes } } = await getClassesByModule(name)
     if (status === 200) {
-      console.log(classes)
       setCurrentClasses(classes)
     }
   }
@@ -61,8 +97,8 @@ export function Admin() {
           justifyContent: 'center'
         }}>
           {
-            modulesList &&
-              modulesList.map(({ name, id }) => (
+            state.modules &&
+            state.modules.map(({ name, id }) => (
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -78,6 +114,7 @@ export function Admin() {
               </div>
             ))
           }
+          <AddCourseDialog />
         </Box>
         <Box css={{
           border: '1px solid yellow',

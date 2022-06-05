@@ -29,9 +29,10 @@ export const {
       lightWarning: '#CC2937',
       darkWarning: '#2D090C',
 
-      lightViolet: '#996DFF',
-      midViolet: '#8257E5',
-      darkViolet: '#633BBC'
+      lightViolet: '#5d48fb',
+      midViolet: '#413374',
+      darkViolet: '#1a0c3e'
+      
       
     },
     space: {

@@ -7,15 +7,41 @@ type userInfosProps = {
   userPassword: string
 }
 
-export async function authenticateUser(userInfos: userInfosProps) {
+export async function authenticateUser({ userEmail, userPassword }: userInfosProps) {
   try {
-    const { data } = await axios.post(`${API_URL}/user/login`, userInfos)
-    localStorage.setItem('token', JSON.stringify(data))
-    return data
+    const { data: { token, name, email, role } } = await axios.post(`${API_URL}/user/login`, {
+      email: userEmail,
+      password: userPassword
+    })
+    localStorage.setItem('token', JSON.stringify(token))
+    localStorage.setItem('role', JSON.stringify(role))
+    return {
+      name,
+      email,
+      role
+    };
   } catch (err) {
     console.log(err)
   }
 }
+
+export async function getAllModulesByAdmin(): Promise<any> {
+  try {
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.get(`${API_URL}/modules/admin`, {
+      headers: {
+        Authorization: jwt
+      },
+    })
+    return data
+  } catch(err) {
+    console.log(err)
+    return err
+  }
+}
+
+
 
 export async function getAllModules(): Promise<any> {
   try {
@@ -37,7 +63,16 @@ export async function getClassesByModule(name: string): Promise<any> {
 
 export async function updateModuleName(moduleName: string, newModuleName: string): Promise<any> {
   try {
-    const data = await axios.put(`${API_URL}/modules/${moduleName}`, {newModuleName})
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.put(`${API_URL}/modules/${moduleName}`,
+    {
+      newModuleName,
+    }, {
+      headers: {
+        Authorization: jwt
+      }
+    })
     return data
   } catch(err) {
     console.log(err)
@@ -46,7 +81,31 @@ export async function updateModuleName(moduleName: string, newModuleName: string
 
 export async function deleteModule(moduleName: string): Promise<any> {
   try {
-    const data = await axios.delete(`${API_URL}/modules/${moduleName}`)
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.delete(`${API_URL}/modules/${moduleName}`, 
+    {
+      headers: {
+        Authorization: jwt
+      }
+    })
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+export async function createModule(moduleName: string): Promise<any> {
+  try {
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.post(`${API_URL}/modules/`, {
+     moduleName
+    }, {
+      headers: {
+        Authorization: jwt
+      }
+    })
     return data
   } catch(err) {
     console.log(err)

@@ -1,8 +1,10 @@
 import { styled } from '../../styles'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux' 
 import { InputText } from '../Components/InputText'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { authenticateUser } from '../../services/api'
+import { addUserInfos } from '../../store/modules/login/actions'
 
 const Container = styled('div', {
   width: '100vw',
@@ -62,6 +64,7 @@ const Button = styled('button', {
 })
 
 export function Login() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [userEmail, setUserEmail] = useState<string>('')
   const [userPassword, setUserPassword] = useState<string>('')
@@ -86,9 +89,13 @@ export function Login() {
 
 
   const handleLogin = async () => {
-    const response = await authenticateUser({ userEmail, userPassword })
-    console.log(response)
-    return navigate('/modules')
+    const result: any = await authenticateUser({ userEmail, userPassword })
+
+    if (result) {
+      console.log(result)
+      dispatch(addUserInfos(result))
+      return navigate('/modules')
+    }
   }
 
   return (
