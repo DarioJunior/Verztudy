@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
-  '100%': { opacity: 1 },
+  '100%': { opacity: 0.5 },
 });
 
 const contentShow = keyframes({
@@ -19,11 +19,11 @@ const contentShow = keyframes({
 });
 
 const StyledOverlay = styled(DialogPrimitive.Overlay, {
-  backgroundColor: "$grey800",
+  backgroundColor: "$grey400",
   position: 'fixed',
   inset: 0,
   '@media (prefers-reduced-motion: no-preference)': {
-    animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+    animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 0.5) forwards`,
   },
 });
 

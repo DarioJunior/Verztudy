@@ -4,10 +4,10 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ChangeEvent, useState } from 'react';
-import { createModule, getAllModulesByAdmin } from '../../services/api';
-import { addModules } from '../../store/modules/modules/actions';
-import { useDispatch } from 'react-redux';
-
+import { createClasse, createModule } from '../../services/api';
+import { useSelector } from 'react-redux';
+import { IState } from '../../store';
+import { IModulesState } from '../../store/modules/modules/types';
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
   '100%': { opacity: 1 },
@@ -92,6 +92,24 @@ const Input = styled('input', {
   '&:focus': { boxShadow: `0 0 0 2px purple` },
 });
 
+const Select = styled('select', {
+  all: 'unset',
+  width: '100%',
+  flex: '1',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 4,
+  padding: '0 10px',
+  fontSize: 15,
+  lineHeight: 1,
+  color: 'black',
+  boxShadow: `0 0 0 1px pink`,
+  height: 35,
+
+  '&:focus': { boxShadow: `0 0 0 2px purple` },
+});
+
 const Flex = styled('div', { display: 'flex' });
 
 export const DialogModal = ({ children, ...props}: any) => {
@@ -154,22 +172,29 @@ const IconButton = styled('button', {
 });
 
 
-export const AddCourseDialog = () => {
-  const dispatch = useDispatch()
+export const AddClasseDialog = () => {
+  const state = useSelector<IState, IModulesState>(state => state.modules)
   const [inputValue, setInputValue] = useState('Exemplo')
+  const [inputSelectValue, setInputSelectValue] = useState('')
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    setInputValue(value)
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = event.target
+    
+    if (name === 'classeName') {
+      setInputValue(value)
+    }
+    if (name === 'moduleName') {
+      setInputSelectValue(value)
+    }
   }
 
-  const handleSaveModule = async () => {
-    const response = await createModule(inputValue)
-
+  const handleSaveClasse = async () => {
+    console.log(inputValue, inputSelectValue)
+    const response = await createClasse(inputValue, inputSelectValue)
     if (response && response.status === 201) {
-      console.log('XXXXXXXXXXXX')
+      alert('Classe criada com sucesso!')
     } else {
-      window.alert('Algo deu errado! provavelmente este módulo já existe.')
+      window.alert('Algo deu errado! provavelmente esta aula já existe.')
     }
   }
   return (
@@ -185,11 +210,17 @@ export const AddCourseDialog = () => {
         Preencha as informações com cuidado
       </DialogDescription>
       <Fieldset>
-      <Label htmlFor="moduleName">Nome da aula:</Label>
-        <Input id="moduleName" value={inputValue} onChange={handleInputChange} />
+      <Label htmlFor="classeName">Nome da aula:</Label>
+        <Input id="classeName" name="classeName" value={inputValue} onChange={handleInputChange} />
+      </Fieldset>
+      <Fieldset>
+      <Label htmlFor="moduleName">Selecione o módulo da aula:</Label>
+        <Select id="moduleName" name="moduleName" value={inputSelectValue} onChange={handleInputChange}>
+          { state.modules.map(module => <option key={module.id} value={module.id}>{module.name}</option>) }
+        </Select>
       </Fieldset>
       <Flex css={{ marginTop: 25, justifyContent: 'flex-end' }}>
-        <Button aria-label="Close" onClick={ handleSaveModule }>
+        <Button aria-label="Close" onClick={ handleSaveClasse }>
           Save
         </Button>
         <DialogClose asChild>
@@ -202,4 +233,3 @@ export const AddCourseDialog = () => {
   </Dialog>
   )
 }
- 

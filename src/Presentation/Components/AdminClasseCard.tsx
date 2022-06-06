@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { styled } from '../../styles'
 import { FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
-import { deleteModule, getAllModulesByAdmin, updateModuleName } from '../../services/api'
+import { deleteClasse, deleteModule, getAllModulesByAdmin, updateClasseName, updateModuleName } from '../../services/api'
 import { useDispatch } from 'react-redux'
 import { addModules } from '../../store/modules/modules/actions'
 
@@ -45,10 +45,10 @@ const Box = styled('div', {
 
 
 
-export function AdminCard({ children, onClickFunction, name, css }: any) {  
+export function AdminClasseCard({ children, /* onClickFunction,*/ name }: any) {  
   const dispatch = useDispatch()
   const [isReadOnly, setIsReadOnly] = useState(true)
-  let originalModuleName = children
+  let originalClasseName = children
   const [inputValue, setInputValue] = useState(children)
 
   const handleChange = (event: any) => {
@@ -65,15 +65,16 @@ export function AdminCard({ children, onClickFunction, name, css }: any) {
   }
 
   const handleDelete = async () => {
-    const result = await deleteModule(name)
+    await deleteClasse(name)
     actualizeModuleList()
   }
 
   const handleSaveChanges = async () => {
-    const newModuleName = inputValue
-    originalModuleName = newModuleName
+    const newClasseName = inputValue
     setIsReadOnly(true)
-    await updateModuleName(originalModuleName, newModuleName)
+    console.log(originalClasseName, inputValue)
+    await updateClasseName(originalClasseName, newClasseName)
+    originalClasseName = newClasseName
   }
 
   const IconEdit = () => {
@@ -98,7 +99,7 @@ export function AdminCard({ children, onClickFunction, name, css }: any) {
         value={inputValue}
         onChange={handleChange}
         // @ts-ignore
-        onClick={!!isReadOnly && (() => onClickFunction(name))}
+        // onClick={!!isReadOnly && (() => onClickFunction(name))}
         readOnly={isReadOnly}
         onBlur={ handleSaveChanges }
         css={{border: '1px solid red'}}

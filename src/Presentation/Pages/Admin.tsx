@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getAllModulesByAdmin, getClassesByModule } from '../../services/api'
+import { getAllModulesByAdmin, getClassesByModuleAsAdmin } from '../../services/api'
 import { styled } from '../../styles'
 
 import { Header } from '../Components/Header'
-import { AdminCard } from '../Components/AdminCard'
 import { AddCourseDialog } from '../Components/ModuleDialog'
 import { addModules } from '../../store/modules/modules/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { IState } from '../../store'
 import { IModulesState } from '../../store/modules/modules/types'
+import { IClassesState } from '../../store/modules/classes/types'
+import { addClasses } from '../../store/modules/classes/actions'
+import { AdminClasseCard } from '../Components/AdminClasseCard'
+import { AdminModuleCard } from '../Components/AdminModuleCard'
+import { AddClasseDialog } from '../Components/ClasseDialog'
 
 const Container = styled('div', {
   width: '100vw',
-  height: '100vh',
-  backgroundColor: '$grey700',
-
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -24,7 +26,6 @@ const Container = styled('div', {
 
 const Box = styled('div', {
   width: '100%',
-  height: '100%',
   border: '1px solid red',
 
   display: 'flex'
@@ -60,10 +61,10 @@ const Button = styled('button', {
 })
 
 export function Admin() {
-  const state = useSelector<IState, IModulesState>(state => state.modules)
+  const modulesState = useSelector<IState, IModulesState>(state => state.modules)
+  const classesState = useSelector<IState, IClassesState>(state => state.classes)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [currentClasses, setCurrentClasses] = useState([])
   
   useEffect(() => {
     const getModules = async () => {
@@ -79,38 +80,36 @@ export function Admin() {
   }, [])
 
   const getClassesFromModule = async (name: string) => {
-    const { status, data: { classes } } = await getClassesByModule(name)
+    const { status, data } = await getClassesByModuleAsAdmin(name)
     if (status === 200) {
-      setCurrentClasses(classes)
+      dispatch(addClasses(data))
     }
   }
   return (
     <Container>
       <Header />
-      <Box css={{
-
-      }}>
+      <Box css={{}}>
         <Box css={{
-          border: '1px solid yellow',
+          padding: '$32',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
           {
-            state.modules &&
-            state.modules.map(({ name, id }) => (
+            modulesState.modules &&
+            modulesState.modules.map(({ name, id }) => (
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 margin: '5px 0'
               }}>
-                <AdminCard 
+                <AdminModuleCard 
                   key={id}
                   onClickFunction={ getClassesFromModule }
                   name={name}
                 >
                   {name}
-                </AdminCard>
+                </AdminModuleCard>
               </div>
             ))
           }
@@ -123,15 +122,17 @@ export function Admin() {
           justifyContent: 'center'
         }}>
           {
-            currentClasses &&
-              currentClasses.map(({ name, id }) => (
-              <AdminCard
+            classesState.classes &&
+            classesState.classes.map(({ name, id }) => (
+              <AdminClasseCard
                 key={id}
+                name={name}
               >
                 {name}
-            </AdminCard>
+            </AdminClasseCard>
             ))
           }
+          <AddClasseDialog />
         </Box>
       </Box>
 

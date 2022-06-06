@@ -41,8 +41,6 @@ export async function getAllModulesByAdmin(): Promise<any> {
   }
 }
 
-
-
 export async function getAllModules(): Promise<any> {
   try {
     const data = await axios.get(`${API_URL}/modules`)
@@ -61,6 +59,24 @@ export async function getClassesByModule(name: string): Promise<any> {
   }
 }
 
+export async function updateClasseName(classeName: string, newClasseName: string): Promise<any> {
+  try {
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.put(`${API_URL}/classes/${classeName}`,
+    {
+      newClasseName,
+    }, {
+      headers: {
+        Authorization: jwt
+      }
+    })
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 export async function updateModuleName(moduleName: string, newModuleName: string): Promise<any> {
   try {
     const localStorageToken = localStorage.getItem('token') || ''
@@ -69,6 +85,22 @@ export async function updateModuleName(moduleName: string, newModuleName: string
     {
       newModuleName,
     }, {
+      headers: {
+        Authorization: jwt
+      }
+    })
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+export async function deleteClasse(classeName: string): Promise<any> {
+  try {
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.delete(`${API_URL}/classes/${classeName}`, 
+    {
       headers: {
         Authorization: jwt
       }
@@ -95,6 +127,24 @@ export async function deleteModule(moduleName: string): Promise<any> {
   }
 }
 
+export async function createClasse(classeName: string, moduleId: string) {
+  try {
+    console.log(classeName, moduleId)
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const data = await axios.post(`${API_URL}/classes`, {
+      classeName,
+      moduleId
+    }, {
+      headers: {
+        Authorization: jwt
+      }
+    })
+    return data
+  } catch(err) {
+    console.log(err)
+  }
+}
 export async function createModule(moduleName: string): Promise<any> {
   try {
     const localStorageToken = localStorage.getItem('token') || ''
@@ -107,6 +157,21 @@ export async function createModule(moduleName: string): Promise<any> {
       }
     })
     return data
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+export async function getClassesByModuleAsAdmin(moduleName: string): Promise<any> {
+  try {
+    const localStorageToken = localStorage.getItem('token') || ''
+    const jwt = JSON.parse(localStorageToken)
+    const response = await axios.get(`${API_URL}/classes/admin/${moduleName}`, {
+      headers: {
+        Authorization: jwt
+      }
+    })
+    return response
   } catch(err) {
     console.log(err)
   }
