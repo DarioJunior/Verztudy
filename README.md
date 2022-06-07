@@ -28,7 +28,7 @@ API_PORT=3333
 API_SECRET='secret'
 DB_URL=mysql://**seu user**:**sua senha**@**localhost**:**3309**/verzel
 
-_OBSERVAÇÃO:_ \n\n\n\n
+_OBSERVAÇÃO:_ `\n\n\n\n`
 o local expõe a porta 3309 e redireciona para a porta 3306 do docker, para caso já tenha um serviço mysql rodando também localmente e não gere conflito!
 Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou o programa de sua preferência.
 
