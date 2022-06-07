@@ -4,7 +4,7 @@ link do back-end: https://github.com/DarioJunior/verztudy-api
 
 ## Instruções de como executar o projeto:
 
-* Após clonar os repositórios de back-end e front-end, execute-os em modo de desenvolvimento através do comando `yarn dev` ou `npm run dev`;
+* Após clonar os repositórios de back-end e front-end, execute-os em modo de desenvolvimento através do comando `yarn` ou `npm install`;
 
 **Certifique-se de ter as portas 3000 (front), 3333(back) e 3306(database) disponíveis e de que o processo do mysql esteja rodando corretamente**
 
@@ -35,9 +35,12 @@ Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou
 
 2) no terminal execute o comando: `yarn upd` _(Este comando vai subir o container expondo as portar 3333 para o back e 3306 para o db **PARA ACESSO INTERNO!**)_
 3) 
-4) Depois de subir os dois containers, acesse o terminal do container api, execute o comando `yarn prisma migrade dev`, este comando irá rodar as migrations (modules, classes e users), após rode o comando `yarn prisma db seed`, que irá popular o db `verzel` já com algumas informações incluindo dois usuários: </br>
+4) Depois de subir os dois containers, acesse o terminal do container api, execute o comando `yarn prisma migrate dev`, este comando irá rodar as migrations (modules, classes e users), após rode o comando `yarn prisma db seed`, que irá popular o db `verzel` já com algumas informações incluindo dois usuários: </br>
 **user: admin@gmail.com senha: admin123**</br>
 **user: user@gmail.com senha: user123** _não há um endpoint para cadastro de usuários_
+
+**Rode o ambiente de front-end com o comando `yarn dev` ou `npm run dev`.** 
+
 
 
 
