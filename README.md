@@ -33,7 +33,8 @@ o local expõe a porta 3309 e redireciona para a porta 3306 do docker, para caso
 Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou o programa de sua preferência._
 
 2) no terminal execute o comando: `yarn upd` _(Este comando vai subir o container expondo as portar 3333 para o back e 3306 para o db **PARA ACESSO INTERNO!**)_
-3) Depois de subir os dois containers, acesso o terminal do container api, execute o comando yarn prisma migrade dev, este comando irá rodar as migratios (modules, classes e users), após rode o comando yarn prisma db seed, que irá popular o db verzel já com algumas informações incluindo dois usuários: </br>
+3) 
+4) Depois de subir os dois containers, acesse o terminal do container api, execute o comando `yarn prisma migrade dev`, este comando irá rodar as migrations (modules, classes e users), após rode o comando `yarn prisma db seed`, que irá popular o db `verzel` já com algumas informações incluindo dois usuários: </br>
 **user: admin@gmail.com senha: admin123**</br>
 **user: user@gmail.com senha: user123** _ não há um endpoint para cadastro de usuários_
 
