@@ -30,7 +30,7 @@ DB_URL=mysql://**seu user**:**sua senha**@**localhost**:**3309**/verzel
 
 _OBSERVAÇÃO:_
 o local expõe a porta 3309 e redireciona para a porta 3306 do docker, para caso já tenha um serviço mysql rodando também localmente e não gere conflito!
-* Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou o programa de sua preferência.
+Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou o programa de sua preferência.
 
 2) no terminal execute o comando: `yarn upd` _(Este comando vai subir o container expondo as portar 3333 para o back e 3306 para o db **PARA ACESSO INTERNO!**)_
 3) Depois de subir os dois containers, acesso o terminal do container api, execute o comando yarn prisma migrade dev, este comando irá rodar as migratios (modules, classes e users), após rode o comando yarn prisma db seed, que irá popular o db verzel já com algumas informações incluindo dois usuários: 
