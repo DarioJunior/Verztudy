@@ -23,12 +23,12 @@ DB_URL=mysql://root:admin@database:3306/verzel
 
 
 Caso opte por rodar o serviço mysql no docker e o backend localmente altere:
-Está versão será para o acesso interno do docker caso deseje executá-lo:
+Esta versão será para o acesso interno do docker caso deseje executá-lo:
 API_PORT=3333
 API_SECRET='secret'
 DB_URL=mysql://**seu user**:**sua senha**@**localhost**:**3309**/verzel
 
-_OBSERVAÇÃO:_
+_OBSERVAÇÃO:_ \n\n\n\n
 o local expõe a porta 3309 e redireciona para a porta 3306 do docker, para caso já tenha um serviço mysql rodando também localmente e não gere conflito!
 Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou o programa de sua preferência.
 
