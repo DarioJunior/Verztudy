@@ -36,7 +36,7 @@ Para ver os registros do DB no diretório do backend, rode npx prisma studio, ou
 3) 
 4) Depois de subir os dois containers, acesse o terminal do container api, execute o comando `yarn prisma migrade dev`, este comando irá rodar as migrations (modules, classes e users), após rode o comando `yarn prisma db seed`, que irá popular o db `verzel` já com algumas informações incluindo dois usuários: </br>
 **user: admin@gmail.com senha: admin123**</br>
-**user: user@gmail.com senha: user123** _ não há um endpoint para cadastro de usuários_
+**user: user@gmail.com senha: user123** _não há um endpoint para cadastro de usuários_
 
 
 
