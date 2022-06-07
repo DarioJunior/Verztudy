@@ -29,8 +29,8 @@ export function Module() {
       const getClasses = async () => {
         const { status, data: { classes } } = await getClassesByModule(name)
         if (status === 200) {
-          console.log(classes.sort())
-          setClassesList(classes)
+          const orderedClasses = classes.sort((a: any, b: any) => a.name.localeCompare(b.name))
+          setClassesList(orderedClasses)
         }
       } 
       getClasses()
@@ -47,7 +47,7 @@ export function Module() {
               height: '100%',
               flexDirection: 'column',
             }}>
-          {classesList && classesList.map(({ name, id }) => (<ClassRow key={id} nameClass={name} />))}
+          {classesList && classesList.sort().map(({ name, id }) => (<ClassRow key={id} nameClass={name} />))}
           </Box>
           <Box css={{ width: '50%', height: '100%', border: '1px solid pink'}}>
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/DMEYKPOGlLk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
