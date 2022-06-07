@@ -8,7 +8,6 @@ import { ClassRow } from '../Components/ClassRow'
 const Container = styled('div', {
   width: '100%',
   height: 'calc(100vh - 0px)',
-  border: '5px solid yellow',
 })
 
 const Box = styled('div', {
@@ -19,8 +18,6 @@ const Box = styled('div', {
   display: 'flex',
   alignItems: 'center',
   boxSizing: 'border-box',
-
-  border: '2px solid red',
 })
 
 export function Module() {
@@ -48,13 +45,12 @@ export function Module() {
             css={{
               width: '50%',
               height: '100%',
-              border: '1px solid pink',
               flexDirection: 'column',
             }}>
           {classesList && classesList.map(({ name, id }) => (<ClassRow key={id} nameClass={name} />))}
           </Box>
           <Box css={{ width: '50%', height: '100%', border: '1px solid pink'}}>
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/DMEYKPOGlLk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/DMEYKPOGlLk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </Box>
       </Box>
 

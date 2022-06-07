@@ -4,7 +4,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ChangeEvent, useState } from 'react';
-import { createClasse, createModule } from '../../services/api';
+import { createClasse } from '../../services/api';
 import { useSelector } from 'react-redux';
 import { IState } from '../../store';
 import { IModulesState } from '../../store/modules/modules/types';
@@ -135,7 +135,6 @@ const Button = styled('button', {
   fontSize: '1.5rem',
   color: '$text',
 
-  // border: '1px solid white',
   borderRadius: '$full',
   marginRight: '$32',
 

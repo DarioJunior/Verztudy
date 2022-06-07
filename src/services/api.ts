@@ -22,6 +22,7 @@ export async function authenticateUser({ userEmail, userPassword }: userInfosPro
     };
   } catch (err) {
     console.log(err)
+    return null
   }
 }
 
@@ -145,6 +146,7 @@ export async function createClasse(classeName: string, moduleId: string) {
     console.log(err)
   }
 }
+
 export async function createModule(moduleName: string): Promise<any> {
   try {
     const localStorageToken = localStorage.getItem('token') || ''

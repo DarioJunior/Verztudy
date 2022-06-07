@@ -69,6 +69,7 @@ export function Login() {
   const [userEmail, setUserEmail] = useState<string>('')
   const [userPassword, setUserPassword] = useState<string>('')
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+  const [asError, setAsError] = useState<boolean>(false)
   
   const HandleInputChanges = (event: ChangeEvent<HTMLInputElement>) => {
     const { target }:any = event
@@ -91,10 +92,14 @@ export function Login() {
   const handleLogin = async () => {
     const result: any = await authenticateUser({ userEmail, userPassword })
 
-    if (result) {
-      console.log(result)
-      dispatch(addUserInfos(result))
-      return navigate('/modules')
+    if (!result) {
+      setAsError(true)
+      setTimeout(() => {
+        setAsError(false)
+      }, 2000)
+    } else {
+        dispatch(addUserInfos(result))
+        return navigate('/modules')
     }
   }
 
@@ -123,7 +128,7 @@ export function Login() {
             Digite sua senha:
           </p>
         </InputText>
-
+        { asError && <p style={{ color: 'red'}}> Usuário ou senha inválida.</p>}
         <Button
           disabled={isDisabled}
           type="button"

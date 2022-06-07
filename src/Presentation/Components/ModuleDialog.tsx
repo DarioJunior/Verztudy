@@ -117,7 +117,6 @@ const Button = styled('button', {
   fontSize: '1.5rem',
   color: '$text',
 
-  // border: '1px solid white',
   borderRadius: '$full',
   marginRight: '$32',
 

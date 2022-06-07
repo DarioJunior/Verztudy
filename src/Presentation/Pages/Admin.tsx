@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAllModulesByAdmin, getClassesByModuleAsAdmin } from '../../services/api'
 import { styled } from '../../styles'
@@ -26,43 +26,15 @@ const Container = styled('div', {
 
 const Box = styled('div', {
   width: '100%',
-  border: '1px solid red',
 
   display: 'flex'
 })
 
-const Title = styled('h1', {
-  color: '$grey200'
-})
-
-const Button = styled('button', {
-  width: 40,
-  height: 40,
-
-  fontSize: '2rem',
-  color: '#006600',
-
-  // border: '1px solid white',
-  borderRadius: '$full',
-  marginRight: '$32',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: 'white',
-
-  '&:hover': {
-    cursor: 'pointer',
-    transition: 'all 0.5s',
-    transform: 'scale(1.1)',
-    color: 'white',
-    background: '#006600',
-  }
-})
 
 export function Admin() {
   const modulesState = useSelector<IState, IModulesState>(state => state.modules)
   const classesState = useSelector<IState, IClassesState>(state => state.classes)
+  const [currentModule, setCurrentModule] = useState<string>('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -97,8 +69,10 @@ export function Admin() {
         }}>
           {
             modulesState.modules &&
-            modulesState.modules.map(({ name, id }) => (
-              <div style={{
+            modulesState.modules.map(({ name, id }, index) => (
+              <div
+              key={index}
+              style={{
                 display: 'flex',
                 alignItems: 'center',
                 margin: '5px 0'
@@ -116,7 +90,6 @@ export function Admin() {
           <AddCourseDialog />
         </Box>
         <Box css={{
-          border: '1px solid yellow',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'

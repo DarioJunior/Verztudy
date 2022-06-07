@@ -65,15 +65,15 @@ export function AdminModuleCard({ children, onClickFunction, name }: any) {
   }
 
   const handleDelete = async () => {
-    const result = await deleteModule(name)
+    await deleteModule(name)
     actualizeModuleList()
   }
 
   const handleSaveChanges = async () => {
     const newModuleName = inputValue
-    originalModuleName = newModuleName
     setIsReadOnly(true)
     await updateModuleName(originalModuleName, newModuleName)
+    originalModuleName = newModuleName
   }
 
   const IconEdit = () => {
@@ -91,17 +91,17 @@ export function AdminModuleCard({ children, onClickFunction, name }: any) {
       </Box>
     )
   }
+
   return (
     <>
+      { /* @ts-ignore */ }
       <Container
         type='text'
         value={inputValue}
         onChange={handleChange}
-        // @ts-ignore
         onClick={!!isReadOnly && (() => onClickFunction(name))}
         readOnly={isReadOnly}
-        onBlur={ handleSaveChanges }
-        css={{border: '1px solid red'}}
+        onBlur={ !isReadOnly ? (() => handleSaveChanges()) : ''}
       />
       <Box css={{ padding: '8px', color: 'white', fontSize: '24px'}}>
         <IconEdit />

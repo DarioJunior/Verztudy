@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { IState } from '../../store'
 import { ILoginState } from '../../store/modules/login/types'
-import { styled, css } from '../../styles'
+import { styled } from '../../styles'
 
 const Container = styled('header', {
   width: '100%',

@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { styled } from '../../styles'
 import { FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
-import { deleteClasse, deleteModule, getAllModulesByAdmin, updateClasseName, updateModuleName } from '../../services/api'
+import { deleteClasse, getAllModulesByAdmin, getClassesByModule, updateClasseName } from '../../services/api'
 import { useDispatch } from 'react-redux'
+import { addClasses } from '../../store/modules/classes/actions'
 import { addModules } from '../../store/modules/modules/actions'
 
 const Container = styled('input', {
@@ -45,7 +46,7 @@ const Box = styled('div', {
 
 
 
-export function AdminClasseCard({ children, /* onClickFunction,*/ name }: any) {  
+export function AdminClasseCard({ children, onClickFunction, name, currentModuleName }: any) {  
   const dispatch = useDispatch()
   const [isReadOnly, setIsReadOnly] = useState(true)
   let originalClasseName = children
@@ -55,9 +56,11 @@ export function AdminClasseCard({ children, /* onClickFunction,*/ name }: any) {
     setInputValue(event.target.value)
   }
 
-  const actualizeModuleList = async () => {
-    const { data } = await getAllModulesByAdmin()
-    dispatch(addModules(data))
+  const actualizeClassList = async () => {
+    const { data } = await getClassesByModule(currentModuleName)
+    console.log(data)
+    dispatch(addClasses(data))
+    onClickFunction(currentModuleName)
   }
 
   const handleSetReadOnly = () => {
@@ -66,7 +69,7 @@ export function AdminClasseCard({ children, /* onClickFunction,*/ name }: any) {
 
   const handleDelete = async () => {
     await deleteClasse(name)
-    actualizeModuleList()
+    actualizeClassList()
   }
 
   const handleSaveChanges = async () => {
@@ -99,10 +102,8 @@ export function AdminClasseCard({ children, /* onClickFunction,*/ name }: any) {
         value={inputValue}
         onChange={handleChange}
         // @ts-ignore
-        // onClick={!!isReadOnly && (() => onClickFunction(name))}
         readOnly={isReadOnly}
         onBlur={ handleSaveChanges }
-        css={{border: '1px solid red'}}
       />
       <Box css={{ padding: '8px', color: 'white', fontSize: '24px'}}>
         <IconEdit />
