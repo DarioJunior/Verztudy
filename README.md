@@ -21,8 +21,8 @@ API_PORT=3333
 API_SECRET='secret'
 DB_URL=mysql://root:admin@database:3306/verzel
 
-Caso opte por rodar o serviço mysql localmente altere:
 
+Caso opte por rodar o serviço mysql localmente altere:
 Está versão será para o acesso interno do docker caso deseje executá-lo:
 API_PORT=3333
 API_SECRET='secret'
