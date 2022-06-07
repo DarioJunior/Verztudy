@@ -12,7 +12,7 @@ link do back-end: https://github.com/DarioJunior/verztudy-api
 1) no terminal execute: yarn _(irá fazer a instalção das dependências)_
 2) Crie o arquivo `.env` com o seguinte valor: VITE_API_URL='http://localhost:3333'
 
-### Para o backe-end:
+### Para o back-end:
 
 Caso opte por utilizar o docker:
 1) Crie o arquivo .env com os seguintes valores: 
