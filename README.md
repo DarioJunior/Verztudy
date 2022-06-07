@@ -16,10 +16,10 @@
 Caso opte por utilizar o docker:
 1) Crie o arquivo .env com os seguintes valores: 
 
-Está versão será para o acesso interno do docker caso deseje executá-lo:</br>
-API_PORT=3333</br>
-API_SECRET='secret'</br>
-DB_URL=mysql://root:admin@database:3306/verzel</br>
+Está versão será para o acesso interno do docker caso deseje executá-lo: </br>
+API_PORT=3333 </br>
+API_SECRET='secret' </br>
+DB_URL=mysql://root:admin@database:3306/verzel </br>
 
 
 Caso opte por rodar o serviço mysql no docker e o backend localmente altere:
