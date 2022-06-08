@@ -1,6 +1,8 @@
 link do back-end: https://github.com/DarioJunior/verztudy-api
 # Verztudy
- Desafio para vaga de Desenvolvedor Fullstack Jr
+ Desafio para vaga de Desenvolvedor Fullstack Jr na empresa Verzel
+
+https://www.canva.com/design/DAExKfR0Sqs/VIkkrrff-6x-h8bSHfhhZg/watch?utm_content=DAExKfR0Sqs&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel
 
 ## Instruções de como executar o projeto:
 
